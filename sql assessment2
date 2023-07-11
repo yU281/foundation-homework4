@@ -1,0 +1,51 @@
+CREATE DATABASE foundation_assessment_ii;
+USE foundation_assessment_ii;
+
+-- A] movie_info Table
+CREATE TABLE movie_info (
+    Movie_ID INT PRIMARY KEY,
+    Movie_Name VARCHAR(255),
+    Movie_Length TIME,
+    Age_Rating VARCHAR(10)
+);
+
+-- B] screens Table
+CREATE TABLE screens (
+    Screen_ID INT PRIMARY KEY,
+    Four_K BOOLEAN
+);
+
+-- C] showings Table
+CREATE TABLE showings (
+    Showing_ID INT PRIMARY KEY,
+    Movie_ID INT,
+    Screen_ID INT,
+    Start_Time TIME,
+    Available_Seats INT,
+    FOREIGN KEY (Movie_ID) REFERENCES movie_info(Movie_ID),
+    FOREIGN KEY (Screen_ID) REFERENCES screens(Screen_ID)
+);
+
+
+
+
+
+
+
+
+
+SELECT Movie_Name, Start_Time
+FROM movie_info
+JOIN showings ON movie_info.Movie_ID = showings.Movie_ID
+WHERE Start_Time > '12:00:00' AND Available_Seats > 0
+ORDER BY Start_Time;
+Query to Return Movie with the Most Showings:
+sql
+Copy code
+SELECT Movie_Name
+FROM movie_info
+JOIN showings ON movie_info.Movie_ID = showings.Movie_ID
+GROUP BY movie_info.Movie_ID
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+
