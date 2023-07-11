@@ -1,0 +1,20 @@
+def calculate_class_allocation(num_students):
+    # Calculate the number of classes needed
+    num_classes = max(2, (num_students + 29) // 30)  # Ensures a minimum of 2 classes
+
+    # Calculate the number of students per class
+    students_per_class = num_students // num_classes
+    remaining_students = num_students % num_classes
+
+    # Create the class allocation dictionary
+    allocation = {}
+    for i in range(num_classes):
+        class_name = f"Class {i+1}"
+        if i < remaining_students:
+            allocation[class_name] = students_per_class + 1
+        else:
+            allocation[class_name] = students_per_class
+
+    # Print the proposed allocation
+    print("Proposed Allocation:", num_classes, "class(es)")
+    print(allocation)
